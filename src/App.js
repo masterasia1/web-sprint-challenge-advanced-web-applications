@@ -16,7 +16,7 @@ function App() {
       <div className="App">
         <header>
           Color Picker Sprint Challenge
-          <a data-testid="logoutButton" href={logout}>logout</a>
+          <a data-testid="logoutButton" href={window.location.href} id={logout}>logout</a>
         </header> 
         // <PrivateRoute path="/bubbles" component={BubblePage} />
 
