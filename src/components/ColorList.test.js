@@ -9,6 +9,9 @@ test("Renders an empty list of colors without errors", () => {
 });
 
 test("Renders a list of colors without errors", () => {
+    render(<ColorList />)
+    const list = screen.getByText (/colors/i)
+    expect(list).toBeInTheDocument
 });
 
 test("Renders the EditForm when editing = true and does not render EditForm when editing = false", () => {
