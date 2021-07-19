@@ -1,67 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios"
 import { render } from "react-dom/cjs/react-dom.development";
 import BubblePage from "./BubblePage"
 
-class Login extends React.Component {
+const Login = () => {
  
  
-  state = {
-    credentials: {
-      username: '',
-      password: ''
-    }
-  };
+ const [form, setForm] = useState ({ username: "", password: ""})
   
-  handleChange = e => {
-    this.setState({
-      credentials: {
-        ...this.state.credentials,
-        [e.target.id]: e.target.value
-      }
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
     });
   };
   
+  useEffect(() => {})
   
-  login = e => {
-    e.preventDefault();
-    axios.post(`/login`, this.state.credentials)
-      .then(res => {
-        localStorage.setItem("token", res.data.payload);
-       render(<BubblePage />);
-       this.props.history.push("/");
-      });
+  const error = "";
+ // login = e => {
+  //  e.preventDefault();
+  //  axios.post(`/login`, this.state.credentials)
+   //   .then(res => {
+    //    localStorage.setItem("token", res.data.payload);
+     //  render(<BubblePage />);
+     //  this.props.history.push("/");
+    //  });
 
      
-  };
+ // };
  
 
-  render() {
+  
     return (
       <div>
-        <form onSubmit={this.login}>
-        <label>Username: </label>
+        <form onSubmit={form.login}>
+        <label htmlFor="username">Username: </label>
           <input
-    
             type="text"
             id="username"
-            value={this.state.credentials.username}
-            onChange={this.handleChange}
+            name="username"
+            value={form.username}
+            onChange={handleChange}
           />
-          <label>Password: </label>
+          <label htmlFor="password">Password: </label>
           <input
             type="password"
             id="password"
-            value={this.state.credentials.password}
-            onChange={this.handleChange}
+            name="password"
+            value={form.password}
+            onChange={handleChange}
           />
           <button id="submit">Log in</button>
           
         </form>
-     
+        <p id="error" className="error">{error}</p>
       </div>
     );
-  }}
+  }
  
  
    
