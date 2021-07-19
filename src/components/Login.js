@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
 import { render } from "react-dom/cjs/react-dom.development";
-import BubblePage from "./BubblePage"
-import {axioswithAuth} from "../helpers/axiosWithAuth"
+import BubblePage from "./BubblePage";
+import  axiosWithAuth from "../helpers/axiosWithAuth";
+import { useHistory } from "react-router";
 
 const Login = () => {
  
  
  const [form, setForm] = useState ({ username: "", password: ""})
-  
+  const {push} = useHistory ()
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -17,23 +18,18 @@ const Login = () => {
   };
   
 const handleSubmit = (e) => {
-  e.preventDefault ()
+  e.preventDefault ();
+  axiosWithAuth().post("/login", form)
+  .then ((res) => {
+    localStorage.setItem("token", res.data.payload);
+    push("/colors")
+  })
+  .catch((err) => {console.log(err)})
 }
 
   useEffect(() => {})
   
   const error = "";
- // login = e => {
-  //  e.preventDefault();
-  //  axios.post(`/login`, this.state.credentials)
-   //   .then(res => {
-    //    localStorage.setItem("token", res.data.payload);
-     //  render(<BubblePage />);
-     //  this.props.history.push("/");
-    //  });
-
-     
- // };
  
 
   

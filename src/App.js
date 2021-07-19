@@ -18,10 +18,10 @@ function App() {
           Color Picker Sprint Challenge
           <a data-testid="logoutButton" href={logout}>logout</a>
         </header> 
-        <switch>
-        <PrivateRoute component={BubblePage} />
+        // <PrivateRoute path="/bubbles" component={BubblePage} />
+
         <Route exact path="/" component={Login} />
-        </switch>
+     
       </div>
     </Router>
   );

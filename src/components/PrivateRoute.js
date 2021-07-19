@@ -6,14 +6,21 @@ import { Route, Redirect } from "react-router-dom";
 
 
 const PrivateRoute = (props) => {
-    if (localStorage.getItem("token")) {
-        return (
-            <Route {...props} />
-        )
-    }
+  
+ const {component:Component, ...rest} = props;
+  
     return (
-        <Redirect to="/" />
+        <Route {...rest} render={(renderProps) => {
+           if (localStorage.getItem("token")) {
+               return <Component {...renderProps} />
+           }
+          else {
+                return <Redirect to="/" />;
+            }
+        }} />
     )
 }
+      
+
 
 export default PrivateRoute;
