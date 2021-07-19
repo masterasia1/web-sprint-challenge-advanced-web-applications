@@ -1,25 +1,75 @@
 import React from "react";
+import axios from "axios"
+import { render } from "react-dom/cjs/react-dom.development";
+import BubblePage from "./BubblePage"
 
-const Login = () => {
-  // make a post request to retrieve a token from the api
-  // when you have handled the token, navigate to the BubblePage route
+class Login extends React.Component {
+ 
+ 
+  state = {
+    credentials: {
+      username: '',
+      password: ''
+    }
+  };
+  
+  handleChange = e => {
+    this.setState({
+      credentials: {
+        ...this.state.credentials,
+        [e.target.id]: e.target.value
+      }
+    });
+  };
+  
+  
+  login = e => {
+    e.preventDefault();
+    axios.post(`/login`, this.state.credentials)
+      .then(res => {
+        localStorage.setItem("token", res.data.payload);
+       render(<BubblePage />);
+       this.props.history.push("/");
+      });
 
-  const error = "";
-  //replace with error state
+     
+  };
+ 
 
-  return (
-    <div>
-      <h1>Welcome to the Bubble App!</h1>
-      <div data-testid="loginForm" className="login-form">
-        <h2>Build login form here</h2>
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.login}>
+        <label>Username: </label>
+          <input
+    
+            type="text"
+            id="username"
+            value={this.state.credentials.username}
+            onChange={this.handleChange}
+          />
+          <label>Password: </label>
+          <input
+            type="password"
+            id="password"
+            value={this.state.credentials.password}
+            onChange={this.handleChange}
+          />
+          <button id="submit">Log in</button>
+          
+        </form>
+     
       </div>
+    );
+  }}
+ 
+ 
+   
 
-      <p id="error" className="error">{error}</p>
-    </div>
-  );
-};
-
-export default Login;
+  
+ export default Login;
+ 
+ 
 
 //Task List:
 //1. Build a form containing a username and password field.

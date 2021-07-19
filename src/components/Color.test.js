@@ -6,9 +6,11 @@ import userEvent from "@testing-library/user-event";
 import Color from './Color';
 
 test("Renders without errors with blank color passed into component", () => {
+    render(<Color color="" />)
 });
   
 test("Renders the color passed into component", () => {
+    render(<Color color="red" />)
 });
 
 test("Executes handleDelete and toggleEdit property when the 'x' icon is clicked", () => {
